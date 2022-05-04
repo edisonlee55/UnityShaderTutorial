@@ -88,15 +88,12 @@ Shader "Unlit/MeowUnlitShader"
 
             fixed4 frag(v2f i) : SV_Target
             {
-                #ifdef ENABLED_HUE
-                float4 _HueColor;
-                Unity_Hue_Degrees_float(_HueBaseColor.rgb, _HueDegreesOffset, _HueColor.rgb);
-                #endif
-
                 // sample the texture
                 _tex2D = tex2D(_MainTex, i.uv);
 
                 #ifdef ENABLED_HUE
+                float4 _HueColor;
+                Unity_Hue_Degrees_float(_HueBaseColor.rgb, _HueDegreesOffset, _HueColor.rgb);
                 fixed4 col = _tex2D + _TintColor + _HueColor;
                 #else
                 fixed4 col = _tex2D + _TintColor;
